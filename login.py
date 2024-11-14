@@ -1,6 +1,6 @@
 import flet as ft
 
-# Dicionário de usuários
+# Dicionário de usuários simulados (para fins de demonstração)
 usuarios = {
     "usuario@exemplo.com": {"senha": "12345"}
 }
