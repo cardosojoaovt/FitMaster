@@ -1,152 +1,163 @@
 import flet as ft
 
-# Dicionário de usuários simulados (para fins de demonstração)
+# Simulação de um banco de dados com usuários
 usuarios = {
     "usuario@exemplo.com": {"senha": "12345"}
 }
 
-# Função para processar o login
-def fazer_login(e, email_field, password_field, page):
-    email = email_field.value
-    senha = password_field.value
-    
-    if not email or not senha:
-        page.dialog = ft.AlertDialog(title=ft.Text("E-mail e senha são obrigatórios."))
-        page.dialog.open = True
-        page.update()
+# Exibe mensagens de alerta
+def exibir_alerta(titulo, pagina):
+    pagina.dialog = ft.AlertDialog(title=ft.Text(titulo))
+    pagina.dialog.open = True
+    pagina.update()
+
+# Exibe mensagens rápidas
+def exibir_snackbar(mensagem, pagina):
+    pagina.snack_bar = ft.SnackBar(ft.Text(mensagem))
+    pagina.snack_bar.open = True
+    pagina.update()
+
+# Redefinir senha
+def redefinir_senha(email, nova_senha, pagina):
+    if not email or not nova_senha:
+        exibir_alerta("Por favor, preencha todos os campos.", pagina)
         return
-    
+
+    if email not in usuarios:
+        exibir_alerta("E-mail não encontrado.", pagina)
+    else:
+        usuarios[email]["senha"] = nova_senha
+        exibir_alerta("Senha redefinida com sucesso!", pagina)
+
+# Dialog de "Esqueci minha senha"
+def exibir_dialogo_redefinir_senha(pagina):
+    campo_email = ft.TextField(label="E-mail", hint_text="Digite seu e-mail cadastrado")
+    campo_nova_senha = ft.TextField(label="Nova senha", hint_text="Digite a nova senha", password=True)
+
+    botao_confirmar = ft.TextButton(
+        "Redefinir senha",
+        on_click=lambda evento: redefinir_senha(campo_email.value, campo_nova_senha.value, pagina)
+    )
+
+    dialogo = ft.AlertDialog(
+        title=ft.Text("Redefinir senha"),
+        content=ft.Column(
+            [campo_email, campo_nova_senha],
+            spacing=10,
+        ),
+        actions=[botao_confirmar],
+    )
+
+    pagina.dialog = dialogo
+    dialogo.open = True
+    pagina.update()
+
+# Login
+def fazer_login(email, senha, pagina):
+    if not email or not senha:
+        exibir_alerta("Por favor, preencha o e-mail e a senha.", pagina)
+        return
+
     usuario = usuarios.get(email)
     if usuario and usuario["senha"] == senha:
-        abrir_tela_principal(page)
+        abrir_tela_principal(pagina)
     else:
-        page.dialog = ft.AlertDialog(title=ft.Text("E-mail ou senha incorretos."))
-        page.dialog.open = True
-        page.update()
+        exibir_alerta("E-mail ou senha incorretos.", pagina)
 
-# Função para criar uma nova conta (simulada, sem banco de dados)
-def criar_conta(e, email_field, password_field, page):
-    email = email_field.value
-    senha = password_field.value
-    
+# Criar conta
+def criar_conta(email, senha, pagina):
     if not email or not senha:
-        page.dialog = ft.AlertDialog(title=ft.Text("E-mail e senha são obrigatórios."))
-        page.dialog.open = True
-        page.update()
+        exibir_alerta("Por favor, preencha o e-mail e a senha.", pagina)
         return
-    
+
     if email in usuarios:
-        page.dialog = ft.AlertDialog(title=ft.Text("Conta já existe."))
+        exibir_alerta("Essa conta já existe.", pagina)
     else:
         usuarios[email] = {"senha": senha}
-        page.dialog = ft.AlertDialog(title=ft.Text("Conta criada com sucesso!"))
-    
-    page.dialog.open = True
-    page.update()
+        exibir_alerta("Conta criada com sucesso!", pagina)
 
-# Função para a tela principal após login bem-sucedido
-def abrir_tela_principal(page):
-    # Limpa a tela antes de exibir a nova tela principal
-    page.controls.clear()
+# Tela principal
+def abrir_tela_principal(pagina):
+    pagina.controls.clear()
 
-    # Botão de sair posicionado no canto superior esquerdo
-    sair_button = ft.IconButton(
-        icon=ft.icons.ARROW_BACK, 
-        on_click=lambda e: abrir_tela_login(page), 
+    botao_sair = ft.IconButton(
+        icon=ft.icons.ARROW_BACK,
+        on_click=lambda evento: abrir_tela_login(pagina),
         icon_color="white",
     )
 
-    # Texto de boas-vindas ao centro da tela
-    bem_vindo_texto = ft.Text(
-        "Bem-vindo à tela principal!", 
+    mensagem_bem_vindo = ft.Text(
+        "Bem-vindo à tela principal!",
         color="white",
         size=24,
-        weight=ft.FontWeight.
-        
-        BOLD,
+        weight=ft.FontWeight.BOLD,
         text_align="center"
     )
 
-    # Estrutura de layout com o botão e o texto
+    # Column para organizar os itens
     tela_principal = ft.Column(
         [
-            ft.Row([sair_button], alignment=ft.MainAxisAlignment.START),
-            ft.Row([bem_vindo_texto], alignment=ft.MainAxisAlignment.CENTER),
+            ft.Row([botao_sair], alignment=ft.MainAxisAlignment.START),
+            ft.Row([mensagem_bem_vindo], alignment=ft.MainAxisAlignment.CENTER),
         ],
-        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+        alignment=ft.MainAxisAlignment.CENTER,
         expand=True
     )
 
-    # Exibe o conteúdo da nova tela
-    page.add(tela_principal)
-    page.update()
+    pagina.add(tela_principal)
+    pagina.update()
 
-# Função para exibir a tela de login
-def abrir_tela_login(page):
-    # Limpa a tela antes de exibir a tela de login
-    page.controls.clear()
+# Tela de login
+def abrir_tela_login(pagina):
+    pagina.controls.clear()
+    campo_email = ft.TextField(label="E-mail", hint_text="Digite seu e-mail", width=240,)
+    campo_senha = ft.TextField(label="Senha", hint_text="Digite sua senha", password=True, width=240)
 
-    email_field = ft.TextField(
-        label="E-mail",
-        hint_text="Digite seu e-mail",
-        width=240,
+    botao_criar_conta = ft.TextButton(
+        "Criar conta",
+        on_click=lambda evento: criar_conta(campo_email.value, campo_senha.value, pagina)
     )
-
-    password_field = ft.TextField(
-        label="Senha",
-        hint_text="Digite sua senha",
-        password=True,
-        width=240,
+    botao_esqueci_senha = ft.TextButton(
+        "Esqueci minha senha",
+        on_click=lambda evento: exibir_dialogo_redefinir_senha(pagina)
     )
-
-    create_account = ft.TextButton("Criar conta", on_click=lambda e: criar_conta(e, email_field, password_field, page))
-    forgot_password_button = ft.TextButton("Esqueci a minha senha", on_click=lambda e: ft.Toast("Função não implementada").show(page))
-    login_button = ft.IconButton(
+    botao_login = ft.IconButton(
         icon=ft.icons.ARROW_FORWARD,
         bgcolor="#800080",
         icon_color="white",
-        on_click=lambda e: fazer_login(e, email_field, password_field, page),
+        on_click=lambda evento: fazer_login(campo_email.value, campo_senha.value, pagina),
     )
 
-    buttons_row = ft.Row(
-        [create_account, forgot_password_button],
-        alignment=ft.MainAxisAlignment.CENTER,
-        spacing=10,
-    )
+    logo = ft.Image(src="imagens/logoaplicativo.png", width=300, height=150)
 
-    logo = ft.Image(
-        src="imagens/logoaplicativo.png",
-        width=550,
-        height=250
-    )
-
+    # Column e Row para organizar a tela de login
     tela_login = ft.Column(
         [
             logo,
-            email_field,
-            password_field,
-            buttons_row,
-            login_button,
+            campo_email,
+            campo_senha,
+            ft.Row([botao_criar_conta, botao_esqueci_senha], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
+            botao_login,
         ],
         alignment=ft.MainAxisAlignment.CENTER,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
     )
-    
-    page.add(tela_login)
-    page.update()
+
+    pagina.add(tela_login)
+    pagina.update()
 
 # Função principal
-def main(page: ft.Page):
-    page.title = "Login - FitMaster"
-    page.theme_mode = ft.ThemeMode.DARK
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.padding = 20
-    page.window_width = 375
-    page.window_height = 667
-    page.bgcolor = "#2b0a3d"
-    
-    abrir_tela_login(page)
+def main(pagina: ft.Page):
+    pagina.title = "FitMaster - Tela de Login"
+    pagina.theme_mode = ft.ThemeMode.DARK
+    pagina.vertical_alignment = ft.MainAxisAlignment.CENTER
+    pagina.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    pagina.padding = 20
+    pagina.window_width = 375
+    pagina.window_height = 667
+    pagina.bgcolor = "#2b0a3d"  # Pode ser substituído por uma imagem de fundo, se preferir
 
-# Executa a aplicação
-ft.app(target=main)
+    abrir_tela_login(pagina)
+
+if __name__ == "__main__":
+    ft.app(target=main)
