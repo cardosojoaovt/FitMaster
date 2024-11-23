@@ -1,83 +1,45 @@
+from flet import *
 import flet as ft
 
-def main(pagina: ft.Page):
-    nome_usuario = "JOÃO VITOR CARDOSO"
+def main(page: Page):
+    # Definindo o título da página
+    page.title = "Navbar"
+    page.window.width = 400
+    page.theme_mode = ThemeMode.DARK
+    page.scroll = 'auto'
+    page.bgcolor = "#2b0a3d"
+    page.appbar = AppBar(title=Text('FitMaster'),bgcolor="#61188a")
     
-    # Configurações da página
-    pagina.title = "FitMaster - Tela do Usuário"
-    pagina.theme_mode = ft.ThemeMode.DARK
-    pagina.vertical_alignment = ft.MainAxisAlignment.CENTER
-    pagina.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    pagina.padding = 10
-    pagina.window_width = 375
-    pagina.window_height = 667
-    pagina.bgcolor = "#2b0a3d"
 
-    # Foto do usuário
-    foto_usuario = ft.Image(
-        src="imagens/usuario.png",
-        width=100,
-        height=100,
-        color="#ffffff",
-        fit=ft.ImageFit.COVER,
-        border_radius=5,
-    )
+    def click_index(e):
+        bt = e.control.selected_index
 
-    # Nome do usuário
-    nome_do_usuario = ft.Container(
-        content=ft.Text(
-            f"{nome_usuario}",
-            size=18,
-            color="#ffffff",
-            weight=ft.FontWeight.BOLD,
-        ),
-        alignment=ft.alignment.center,
-        padding=ft.padding.symmetric(vertical=10),
-    )
+        if bt == 0:
+            page.clean()
+            page.add(Text(value='Página 1'), Image(src=f"imagens\gym.jpg"))
+            page.bgcolor = "#2b0a3d"
+            page.update()
 
-    # Blocos de interação com o app
-    bloco_configuracoes = ft.Container(
-        content=ft.Text(
-            "Configurações do perfil",
-            size=18,
-            color="#ffffff",
-            weight=ft.FontWeight.BOLD,
-        ),
-        width=250,
-        height=50,
-        bgcolor="purple",
-        border_radius=5,
-        alignment=ft.alignment.center,
-        on_click=lambda e: print("Configurações do perfil clicado"),
-    )
+        # se index = 1
+        if bt  == 1:
+            page.clean()
+            page.add(Text(value='Página 2'), Image(src=f""))
+            page.bgcolor = "#2b0a3d"
+            page.update()
 
-    bloco_perfil = ft.Container(
-        content=ft.Text(
-            "Ver meu perfil",
-            size=18,
-            color="#ffffff",
-            weight=ft.FontWeight.BOLD,
-        ),
-        width=250,
-        height=50,
-        bgcolor="purple",
-        border_radius=5,
-        alignment=ft.alignment.center,
-        on_click=lambda e: print("Perfil clicado"),
-    )
+        if bt == 2:
+            page.clean()
+            page.bgcolor = "#2b0a3d"
+            page.update()
 
-    # Layout da tela
-    pagina.add(
-        foto_usuario,
-        nome_do_usuario,
-        ft.Column(
-            controls=[
-                bloco_configuracoes,
-                bloco_perfil,
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-            spacing=20,
-        )
-    )
+    page.navigation_bar = NavigationBar(
+            bgcolor="#61188a",
+            on_change=click_index,
+            destinations=[
+                    NavigationDestination(icon=icons.HOME, label='HOME'),
+                    NavigationDestination(icon=icons.SHOPPING_BAG, label='LOJA'),
+                    NavigationDestination(icon=icons.PERSON, label='PERFIL', )])
 
-ft.app(target=main)
+    page.add()    
+
+app(target=main)

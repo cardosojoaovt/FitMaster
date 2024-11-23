@@ -1,3 +1,4 @@
+from flet import *
 import flet as ft
 
 # Simulação de um banco de dados com usuários
@@ -31,8 +32,14 @@ def redefinir_senha(email, nova_senha, pagina):
 
 # Dialog de "Esqueci minha senha"
 def exibir_dialogo_redefinir_senha(pagina):
-    campo_email = ft.TextField(label="E-mail", hint_text="Digite seu e-mail cadastrado")
-    campo_nova_senha = ft.TextField(label="Nova senha", hint_text="Digite a nova senha", password=True)
+    campo_email = ft.TextField(
+        label="E-mail",
+        hint_text="Digite seu e-mail cadastrado"
+        )
+    
+    campo_nova_senha = ft.TextField(
+        label="Nova senha",
+        hint_text="Digite a nova senha", password=True)
 
     botao_confirmar = ft.TextButton(
         "Redefinir senha",
@@ -110,8 +117,19 @@ def abrir_tela_principal(pagina):
 # Tela de login
 def abrir_tela_login(pagina):
     pagina.controls.clear()
-    campo_email = ft.TextField(label="E-mail", hint_text="Digite seu e-mail", width=240,)
-    campo_senha = ft.TextField(label="Senha", hint_text="Digite sua senha", password=True, width=240)
+    campo_email = ft.TextField(
+        label="E-mail",
+        hint_text="Digite seu e-mail",
+        width=240,
+        )
+    
+    campo_senha = ft.TextField(
+        label="Senha",
+        hint_text="Digite sua senha",
+        password=True,
+        can_reveal_password=True,
+        width=240
+        )
 
     botao_criar_conta = ft.TextButton(
         "Criar conta",
@@ -123,7 +141,7 @@ def abrir_tela_login(pagina):
     )
     botao_login = ft.IconButton(
         icon=ft.icons.ARROW_FORWARD,
-        bgcolor="#800080",
+        bgcolor="#61188a",
         icon_color="white",
         on_click=lambda evento: fazer_login(campo_email.value, campo_senha.value, pagina),
     )
@@ -156,6 +174,7 @@ def main(pagina: ft.Page):
     pagina.window_width = 375
     pagina.window_height = 667
     pagina.bgcolor = "#2b0a3d"  # Pode ser substituído por uma imagem de fundo, se preferir
+    pass
 
     abrir_tela_login(pagina)
 
