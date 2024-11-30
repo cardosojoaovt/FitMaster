@@ -14,7 +14,7 @@ def main(page: ft.Page):
 
     plano_atual = "PLANO GOLD"
 
-    back_icon = ft.Image(src="seta_voltar.png", width=30, height=30)
+    back_icon = ft.Image(src="imagens/seta_voltar.png", width=30, height=30)
 
     def on_back_button_click(e):
         page.go_back()
