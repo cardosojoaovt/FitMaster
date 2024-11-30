@@ -34,11 +34,13 @@ def redefinir_senha(email, nova_senha, pagina):
 def exibir_dialogo_redefinir_senha(pagina):
     campo_email = ft.TextField(
         label="E-mail",
+        bgcolor="#ffffff",
         hint_text="Digite seu e-mail cadastrado"
         )
     
     campo_nova_senha = ft.TextField(
         label="Nova senha",
+        bgcolor="#ffffff",
         hint_text="Digite a nova senha", password=True)
 
     botao_confirmar = ft.TextButton(
@@ -48,13 +50,16 @@ def exibir_dialogo_redefinir_senha(pagina):
 
     dialogo = ft.AlertDialog(
         title=ft.Text("Redefinir senha"),
+        bgcolor="#a101af",
         content=ft.Column(
             [campo_email, campo_nova_senha],
             spacing=10,
+            width=240,
         ),
+        
         actions=[botao_confirmar],
     )
-
+    
     pagina.dialog = dialogo
     dialogo.open = True
     pagina.update()
@@ -119,6 +124,7 @@ def abrir_tela_login(pagina):
     pagina.controls.clear()
     campo_email = ft.TextField(
         label="E-mail",
+        bgcolor="#ffffff",
         hint_text="Digite seu e-mail",
         width=240,
         )
@@ -126,6 +132,7 @@ def abrir_tela_login(pagina):
     campo_senha = ft.TextField(
         label="Senha",
         hint_text="Digite sua senha",
+        bgcolor="#ffffff",
         password=True,
         can_reveal_password=True,
         width=240
@@ -137,7 +144,8 @@ def abrir_tela_login(pagina):
     )
     botao_esqueci_senha = ft.TextButton(
         "Esqueci minha senha",
-        on_click=lambda evento: exibir_dialogo_redefinir_senha(pagina)
+        on_click=lambda evento: exibir_dialogo_redefinir_senha(pagina),
+        
     )
     botao_login = ft.IconButton(
         icon=ft.icons.ARROW_FORWARD,
@@ -173,7 +181,7 @@ def main(pagina: ft.Page):
     pagina.padding = 20
     pagina.window_width = 375
     pagina.window_height = 667
-    pagina.bgcolor = "#2b0a3d"  # Pode ser substituído por uma imagem de fundo, se preferir
+    pagina.bgcolor = "#5a0162"  # Pode ser substituído por uma imagem de fundo, se preferir
     pass
 
     abrir_tela_login(pagina)

@@ -9,11 +9,11 @@ def main(page: ft.Page):
     page.padding = 20
     page.window.width = 375
     page.window.height = 667
-    page.bgcolor = "#2b0a3d"
+    page.bgcolor = "#5a0162"
 
 # Criação da caixa de texto
     text_box = [
-        {"background_color": "purple"}
+        {"background_color": "#a101af"}
     ]
 
     # Layout tela de exercicios
