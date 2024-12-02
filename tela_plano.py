@@ -7,7 +7,6 @@ def main(page: ft.Page):
     page.vertical_alignment = ft.MainAxisAlignment.CENTER  # Centraliza o conteúdo verticalmente
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER  # Centraliza o conteúdo horizontalmente
     page.padding = 0
-
     page.window.width = 375
     page.window.height = 667
     page.theme_mode = ft.ThemeMode.DARK

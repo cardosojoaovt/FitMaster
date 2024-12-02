@@ -7,7 +7,9 @@ def main(page: ft.Page):
     page.window.width = 400
     page.theme_mode = ThemeMode.DARK
     page.scroll = 'auto'
-    page.bgcolor = "#5a0162"
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER  # Centraliza o conteúdo verticalmente
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER  # Centraliza o conteúdo horizontalmente
+    page.bgcolor = "#2b0a3d"
     page.appbar = AppBar(bgcolor="#a101af")
 
     # Caminho inicial da imagem de perfil (foto padrão)
@@ -48,7 +50,7 @@ def main(page: ft.Page):
                                     content=IconButton(
                                         icon=icons.EDIT,
                                         icon_size=20,
-                                        bgcolor="#5a0162",
+                                        bgcolor="#a101af",
                                         icon_color="white",
                                         tooltip="Trocar foto",
                                         on_click=lambda _: file_picker.pick_files(

@@ -1,3 +1,4 @@
+from flet import *
 import flet as ft
 import time
 from threading import Thread
@@ -57,7 +58,7 @@ def main(page: ft.Page):
     header = ft.Container(
         content=ft.Row(
             controls=[
-                ft.Icon(name=ft.Icons.ARROW_BACK, color="white"),
+                ft.Icon(name=ft.icons.ARROW_BACK, color="white"),
                 ft.Text("Minha Ficha", color="white", size=24, weight="bold"),
             ],
             alignment=ft.MainAxisAlignment.START,
@@ -119,9 +120,9 @@ def main(page: ft.Page):
     # Botões do cronômetro
     timer_controls = ft.Row(
         controls=[
-            ft.ElevatedButton(content=ft.Icon(name=ft.Icons.PLAY_ARROW, color="purple"),bgcolor="white", on_click=start_timer),
-            ft.ElevatedButton(content=ft.Icon(name=ft.Icons.PAUSE, color="purple"),bgcolor="white", on_click=pause_timer),
-            ft.ElevatedButton(content=ft.Icon(name=ft.Icons.RESTART_ALT, color="purple"),bgcolor="white", on_click=reset_timer),
+            ft.ElevatedButton(content=ft.Icon(name=ft.icons.PLAY_ARROW, color="purple"),bgcolor="white", on_click=start_timer),
+            ft.ElevatedButton(content=ft.Icon(name=ft.icons.PAUSE, color="purple"),bgcolor="white", on_click=pause_timer),
+            ft.ElevatedButton(content=ft.Icon(name=ft.icons.RESTART_ALT, color="purple"),bgcolor="white", on_click=reset_timer),
         ],
         alignment=ft.MainAxisAlignment.SPACE_EVENLY,
     )

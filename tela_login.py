@@ -1,6 +1,19 @@
 from flet import *
 import flet as ft
 
+# Função principal
+def main(pagina: ft.Page):
+    pagina.title = "FitMaster - Tela de Login"
+    pagina.theme_mode = ft.ThemeMode.DARK
+    pagina.vertical_alignment = ft.MainAxisAlignment.CENTER
+    pagina.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    pagina.padding = 20
+    pagina.window_width = 375
+    pagina.window_height = 667
+    pagina.bgcolor = "#2b0a3d"  # Pode ser substituído por uma imagem de fundo, se preferir
+
+    abrir_tela_login(pagina)
+
 # Simulação de um banco de dados com usuários
 usuarios = {
     "usuario@exemplo.com": {"senha": "12345"}
@@ -8,7 +21,7 @@ usuarios = {
 
 # Exibe mensagens de alerta
 def exibir_alerta(titulo, pagina):
-    pagina.dialog = ft.AlertDialog(title=ft.Text(titulo))
+    pagina.dialog = ft.AlertDialog(title=ft.Text(titulo), bgcolor="#410f5d")
     pagina.dialog.open = True
     pagina.update()
 
@@ -50,7 +63,7 @@ def exibir_dialogo_redefinir_senha(pagina):
 
     dialogo = ft.AlertDialog(
         title=ft.Text("Redefinir senha"),
-        bgcolor="#a101af",
+        bgcolor="#410f5d",
         content=ft.Column(
             [campo_email, campo_nova_senha],
             spacing=10,
@@ -171,20 +184,6 @@ def abrir_tela_login(pagina):
 
     pagina.add(tela_login)
     pagina.update()
-
-# Função principal
-def main(pagina: ft.Page):
-    pagina.title = "FitMaster - Tela de Login"
-    pagina.theme_mode = ft.ThemeMode.DARK
-    pagina.vertical_alignment = ft.MainAxisAlignment.CENTER
-    pagina.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    pagina.padding = 20
-    pagina.window_width = 375
-    pagina.window_height = 667
-    pagina.bgcolor = "#5a0162"  # Pode ser substituído por uma imagem de fundo, se preferir
-    pass
-
-    abrir_tela_login(pagina)
 
 if __name__ == "__main__":
     ft.app(target=main)

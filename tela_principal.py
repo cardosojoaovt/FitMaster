@@ -7,9 +7,11 @@ def main(page: ft.Page):
     page.padding = 20
     page.window.width = 375
     page.window.height = 667
-    page.bgcolor = "#5a0162"
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER  # Centraliza o conteúdo verticalmente
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER  # Centraliza o conteúdo horizontalmente
+    page.bgcolor = "#2b0a3d"
     page.scroll = 'auto'
-    page.appbar = AppBar(bgcolor="#a101af")
+    page.appbar = AppBar(bgcolor="#410f5d")
 
     def mostrar_menu():
         page.controls.clear()
@@ -60,7 +62,7 @@ def main(page: ft.Page):
                 resultado_text
             ], alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
             on_dismiss=lambda e: page.update(),
-            bgcolor="#5a0162",
+            bgcolor="#410f5d",
         )
         page.dialog.open = True
         page.update()
@@ -103,7 +105,7 @@ def main(page: ft.Page):
                             vertical_alignment=ft.CrossAxisAlignment.CENTER,
                         ),
                         padding=ft.padding.symmetric(horizontal=10, vertical=15),
-                        bgcolor="#a101af",
+                        bgcolor="#410f5d",
                     ),
                     # Exibir os dados da avaliação
                     *[
@@ -125,7 +127,7 @@ def main(page: ft.Page):
                                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                             ),
                             padding=ft.padding.all(10),
-                            bgcolor="#6A0572",
+                            bgcolor="#410f5d",
                             border_radius=10,
                             margin=ft.margin.symmetric(vertical=5),
                         )
@@ -163,7 +165,7 @@ def main(page: ft.Page):
                             vertical_alignment=ft.CrossAxisAlignment.CENTER,
                         ),
                         padding=ft.padding.symmetric(horizontal=10, vertical=15),
-                        bgcolor="#a101af",
+                        bgcolor="#410f5d",
                     ),
                     ft.Container(
                         content=ft.Row(
@@ -180,7 +182,7 @@ def main(page: ft.Page):
                         ),
                         border_radius=10,
                         padding=15,
-                        bgcolor="#a101af",
+                        bgcolor="#410f5d",
                         height=60,
                         margin=ft.margin.symmetric(vertical=10),
                         on_click=mostrar_detalhes_avaliacao,
@@ -197,7 +199,7 @@ def main(page: ft.Page):
             title=ft.Text("FICHA DE TREINO", size=24, weight=ft.FontWeight.BOLD, color="white"),
             content=ft.Text("VIZUALIZAR EXERCÍCIOS.", size=18, color="lightgray"),
             on_dismiss=lambda e: page.update(),
-            bgcolor="#5a0162",
+            bgcolor="#410f5d",
         )
         page.dialog.open = True
         page.update()
@@ -207,7 +209,7 @@ def main(page: ft.Page):
             title=ft.Text("PRODUTOS", size=24, weight=ft.FontWeight.BOLD, color="white"),
             content=ft.Text("LOJA DE PRODUTOS E SUPLEMEMENTOS.", size=18, color="lightgray"),
             on_dismiss=lambda e: page.update(),
-            bgcolor="#5a0162",
+            bgcolor="#410f5d",
         )
         page.dialog.open = True
         page.update()
@@ -217,7 +219,7 @@ def main(page: ft.Page):
             title=ft.Text("SEU PLANO", size=24, weight=ft.FontWeight.BOLD, color="white"),
             content=ft.Text("INFORMAÇÕES DO SEU PLANO.", size=18, color="lightgray"),
             on_dismiss=lambda e: page.update(),
-            bgcolor="#5a0162",
+            bgcolor="#410f5d",
         )
         page.dialog.open = True
         page.update()
@@ -227,7 +229,7 @@ def main(page: ft.Page):
             title=ft.Text("PERFIL", size=24, weight=ft.FontWeight.BOLD, color="white"),
             content=ft.Text("EDITAR DADOS DO PERFIL.", size=18, color="lightgray"),
             on_dismiss=lambda e: page.update(),
-            bgcolor="#5a0162",
+            bgcolor="#410f5d",
         )
         page.dialog.open = True
         page.update()
