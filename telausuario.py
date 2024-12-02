@@ -10,7 +10,7 @@ def main(page: ft.Page):
     page.vertical_alignment = ft.MainAxisAlignment.CENTER  # Centraliza o conteúdo verticalmente
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER  # Centraliza o conteúdo horizontalmente
     page.bgcolor = "#2b0a3d"
-    page.appbar = AppBar(bgcolor="#a101af")
+    page.appbar = AppBar(bgcolor="#410f5d")
 
     # Caminho inicial da imagem de perfil (foto padrão)
     profile_image = "imagens/usuario.png"  # Substitua pelo caminho correto da imagem padrão
@@ -50,7 +50,7 @@ def main(page: ft.Page):
                                     content=IconButton(
                                         icon=icons.EDIT,
                                         icon_size=20,
-                                        bgcolor="#a101af",
+                                        bgcolor="#410f5d",
                                         icon_color="white",
                                         tooltip="Trocar foto",
                                         on_click=lambda _: file_picker.pick_files(
@@ -84,7 +84,7 @@ def main(page: ft.Page):
                 expand=True,
             )
         )
-        page.bgcolor = "#5a0162"
+        page.bgcolor = "#2b0a3d"
         page.update()
 
     # Navegação
@@ -97,7 +97,7 @@ def main(page: ft.Page):
     page.overlay.append(file_picker)
 
     page.navigation_bar = NavigationBar(
-        bgcolor="#a101af",
+        bgcolor="#410f5d",
         on_change=click_index,
         destinations=[
             NavigationDestination(icon=icons.HOME, label='HOME'),

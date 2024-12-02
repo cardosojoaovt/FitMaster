@@ -1,7 +1,7 @@
 from flet import *
 import flet as ft
 
-def main(page: ft.Page):
+def principal(page: ft.Page):
     page.title = "FitMaster - Menu"
     page.theme_mode = ft.ThemeMode.DARK
     page.padding = 20
@@ -234,7 +234,6 @@ def main(page: ft.Page):
         page.dialog.open = True
         page.update()
 
- 
     menu_items = [
         {
             "label": "FICHA DE TREINO",
@@ -305,4 +304,4 @@ def main(page: ft.Page):
 
     mostrar_menu()
 
-ft.app(target=main)
+ft.app(target=principal)
