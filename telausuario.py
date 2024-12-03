@@ -3,13 +3,15 @@ import flet as ft
 
 def main(page: ft.Page):
     # Configurações gerais da página
-    page.title = "Navbar"
-    page.window.width = 400
-    page.theme_mode = ThemeMode.DARK
-    page.scroll = 'auto'
+    page.title = "FitMaster - Perfil"
+    page.theme_mode = ft.ThemeMode.DARK
+    page.padding = 20
+    page.window.width = 375
+    page.window.height = 667
     page.vertical_alignment = ft.MainAxisAlignment.CENTER  # Centraliza o conteúdo verticalmente
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER  # Centraliza o conteúdo horizontalmente
     page.bgcolor = "#2b0a3d"
+    page.scroll = 'auto'
     page.appbar = AppBar(bgcolor="#410f5d")
 
     # Caminho inicial da imagem de perfil (foto padrão)
@@ -25,7 +27,7 @@ def main(page: ft.Page):
 
     # Função para exibir a seção de perfil
     def show_profile_section():
-        page.clean()
+        page.clean()  # Limpa a página antes de adicionar o novo conteúdo
         page.add(
             Container(
                 content=Column(
@@ -68,44 +70,99 @@ def main(page: ft.Page):
                         Text(
                             value="NOME COMPLETO: PEDRO AFONSO\n"
                                 "ENDEREÇO: RUA EXEMPLO, 123, APTO 456\n"
-                                "CEP: 35500-000"
+                                "CEP: 35500-000\n"
                                 "BAIRRO: CENTRO\n"
                                 "CIDADE: SÃO PAULO\n"
                                 "FREQUENTA A ACADEMIA: FITMASTER",
                             color="white",
                             size=14,
                             text_align="center",
+                            
+                        ),
+                        # Calendário horizontal com dias da semana
+                        Divider(height=30, color=ft.colors.GREY),
+                        Row(
+                            [
+                                # Dias da semana (siglas)
+                                Container(content=Text("Seg", color="white", size=14), alignment=alignment.center),
+                                Container(content=Text("Ter", color="white", size=14), alignment=alignment.center),
+                                Container(content=Text("Qua", color="white", size=14), alignment=alignment.center),
+                                Container(content=Text("Qui", color="white", size=14), alignment=alignment.center),
+                                Container(content=Text("Sex", color="white", size=14), alignment=alignment.center),
+                                Container(content=Text("Sáb", color="white", size=14), alignment=alignment.center),
+                                Container(content=Text("Dom", color="white", size=14), alignment=alignment.center),
+                            ],
+                            alignment=ft.MainAxisAlignment.CENTER,  # Alinha todos os itens no centro
+                            spacing=10,  # Espaço entre os dias
+                        ),
+                        # Indicadores de presença (círculos coloridos)
+                        Row(
+                            [
+                                # Presença nos dias da semana, representada por círculos coloridos
+                                Container(
+                                    content=CircleAvatar(color=ft.colors.GREEN),  # Presença
+                                    width=30,
+                                    height=30,
+                                    alignment=alignment.center,
+                                ),
+                                Container(
+                                    content=CircleAvatar(color=ft.colors.RED),  # Ausente
+                                    width=30,
+                                    height=30,
+                                    alignment=alignment.center,
+                                ),
+                                Container(
+                                    content=CircleAvatar(color=ft.colors.GREEN),  # Presença
+                                    width=30,
+                                    height=30,
+                                    alignment=alignment.center,
+                                ),
+                                Container(
+                                    content=CircleAvatar(color=ft.colors.RED),  # Ausente
+                                    width=30,
+                                    height=30,
+                                    alignment=alignment.center,
+                                ),
+                                Container(
+                                    content=CircleAvatar(color=ft.colors.GREEN),  # Presença
+                                    width=30,
+                                    height=30,
+                                    alignment=alignment.center,
+                                ),
+                                Container(
+                                    content=CircleAvatar(color=ft.colors.RED),  # Ausente
+                                    width=30,
+                                    height=30,
+                                    alignment=alignment.center,
+                                ),
+                                Container(
+                                    content=CircleAvatar(color=ft.colors.GREEN),  # Presença
+                                    width=30,
+                                    height=30,
+                                    alignment=alignment.center,
+                                ),
+                            ],
+                            alignment=ft.MainAxisAlignment.CENTER,  # Centraliza os círculos
+                            spacing=10,  # Espaçamento entre os círculos
                         ),
                     ],
-                    alignment="center",
-                    horizontal_alignment="center",
+                    alignment="center",  # Centraliza todos os itens na coluna
+                    horizontal_alignment="center",  # Centraliza horizontalmente
+                    spacing=20,  # Espaçamento entre os componentes
                 ),
                 alignment=alignment.center,
-                expand=True,
+                expand=True,  # Expande o container para ocupar toda a tela
+                padding=20,
             )
         )
-        page.bgcolor = "#2b0a3d"
+        page.bgcolor = "#2b0a3d"  # Cor de fundo do aplicativo
         page.update()
-
-    # Navegação
-    def click_index(e):
-        if e.control.selected_index == 2:  # Seção Perfil
-            show_profile_section()
 
     # FilePicker para selecionar a foto
     file_picker = FilePicker(on_result=change_profile_image)
     page.overlay.append(file_picker)
 
-    page.navigation_bar = NavigationBar(
-        bgcolor="#410f5d",
-        on_change=click_index,
-        destinations=[
-            NavigationDestination(icon=icons.HOME, label='HOME'),
-            NavigationDestination(icon=icons.SHOPPING_BAG, label='LOJA'),
-            NavigationDestination(icon=icons.PERSON, label='PERFIL'),
-        ]
-    )
-
-    page.add()
+    # Exibe a seção de perfil logo ao iniciar
+    show_profile_section()
 
 app(target=main)

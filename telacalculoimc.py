@@ -52,8 +52,8 @@ def main(page: ft.Page):
             page.update()
 
     # Entradas do usuário
-    input_peso = ft.TextField(label="Peso (kg)", width=150, text_align=ft.TextAlign.CENTER)
-    input_altura = ft.TextField(label="Altura (cm)", width=150, text_align=ft.TextAlign.CENTER)
+    input_peso = ft.TextField(label="Peso (kg)", width=150, text_align=ft.TextAlign.CENTER, bgcolor="white")
+    input_altura = ft.TextField(label="Altura (cm)", width=150, text_align=ft.TextAlign.CENTER, bgcolor="white")
 
     # Botão de cálculo
     btn_calcular = ft.ElevatedButton(
