@@ -3,8 +3,7 @@ import flet as ft
 import time
 from threading import Thread
 
-def main(page: ft.Page):
-    # Configurações gerais da página
+def TelaFicha(page: ft.Page, navegar_para, *args):
     page.title = "FitMaster - Ficha"
     page.theme_mode = ft.ThemeMode.DARK
     page.padding = 20
@@ -12,24 +11,20 @@ def main(page: ft.Page):
     page.window_height = 667
     page.bgcolor = "#2b0a3d"
 
-    # Variáveis para controlar o cronômetro
     running = False
     time_seconds = 0
 
-    # Função para formatar o tempo (segundos -> HH:MM:SS)
     def format_time(seconds):
         h = seconds // 3600
         m = (seconds % 3600) // 60
         s = seconds % 60
         return f"{h:02}:{m:02}:{s:02}"
 
-    # Atualiza o display do cronômetro
     timer_text = ft.Text(format_time(time_seconds), size=40, color="white", weight="bold")
 
-    # Função que controla o cronômetro
     def start_timer(e):
         nonlocal running, time_seconds
-        if not running:  # Evita múltiplas threads
+        if not running:  
             running = True
 
             def update_time():
@@ -40,7 +35,6 @@ def main(page: ft.Page):
                     timer_text.value = format_time(time_seconds)
                     page.update()
 
-            # Inicia uma thread para atualizar o cronômetro
             Thread(target=update_time, daemon=True).start()
 
     def pause_timer(e):
@@ -54,11 +48,14 @@ def main(page: ft.Page):
         timer_text.value = format_time(time_seconds)
         page.update()
 
-    # Cabeçalho
     header = ft.Container(
         content=ft.Row(
             controls=[
-                ft.Icon(name=ft.icons.ARROW_BACK, color="white"),
+                ft.IconButton(
+                    icon=ft.icons.ARROW_BACK,
+                    icon_color="white",
+                    on_click=lambda e: navegar_para("menu"),  
+                ),
                 ft.Text("Minha Ficha", color="white", size=24, weight="bold"),
             ],
             alignment=ft.MainAxisAlignment.START,
@@ -66,7 +63,6 @@ def main(page: ft.Page):
         padding=ft.padding.symmetric(vertical=10),
     )
 
-    # Lista de exercícios
     exercises = [
         "Pulley Frente    3x - 12 reps",
         "Rosca Direta     3x - 12 reps",
@@ -108,7 +104,6 @@ def main(page: ft.Page):
         ]
     )
 
-    # Cronômetro
     timer = ft.Container(
         content=timer_text,
         alignment=ft.alignment.center,
@@ -117,22 +112,18 @@ def main(page: ft.Page):
         bgcolor="#000000",
     )
 
-    # Botões do cronômetro
     timer_controls = ft.Row(
         controls=[
-            ft.ElevatedButton(content=ft.Icon(name=ft.icons.PLAY_ARROW, color="purple"),bgcolor="white", on_click=start_timer),
-            ft.ElevatedButton(content=ft.Icon(name=ft.icons.PAUSE, color="purple"),bgcolor="white", on_click=pause_timer),
-            ft.ElevatedButton(content=ft.Icon(name=ft.icons.RESTART_ALT, color="purple"),bgcolor="white", on_click=reset_timer),
+            ft.ElevatedButton(content=ft.Icon(name=ft.icons.PLAY_ARROW, color="purple"), bgcolor="white", on_click=start_timer),
+            ft.ElevatedButton(content=ft.Icon(name=ft.icons.PAUSE, color="purple"), bgcolor="white", on_click=pause_timer),
+            ft.ElevatedButton(content=ft.Icon(name=ft.icons.RESTART_ALT, color="purple"), bgcolor="white", on_click=reset_timer),
         ],
         alignment=ft.MainAxisAlignment.SPACE_EVENLY,
     )
 
-    # Montando a página
     page.add(
         header,
         exercise_list,
         ft.Container(content=timer, padding=10),
         ft.Container(content=timer_controls, padding=10),
     )
-
-ft.app(target=main)
