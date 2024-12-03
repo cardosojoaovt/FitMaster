@@ -1,7 +1,6 @@
 import flet as ft
 
-def main(page: ft.Page):
-    # Configurações da página
+def TelaPulley(page: ft.Page, navegar_para):
     page.title = "Execução de Exercícios"
     page.theme_mode = ft.ThemeMode.DARK
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -9,36 +8,37 @@ def main(page: ft.Page):
     page.padding = 20
     page.window.width = 375
     page.window.height = 667
+<<<<<<< HEAD:Telas_Exercicios/tela_exercicios.py
     page.bgcolor = "#2b0a3d"
 
-    
-    
-
     # Criação da caixa de texto
+=======
+    page.bgcolor = "#5a0162"
+
+>>>>>>> 3b4e1e78d4bfb489f19fb82d9a6beade62b495fd:telasExercicios/pulleyFrente.py
     text_box = [
         {"background_color": "#410f5d"}
     ]
 
-    # Layout tela de exercicios
+
     page.add(
-        ft.Row(
+       ft.Container(
+        content=ft.Row(
             controls=[
-                ft.Container(
-                    content=ft.Column(
-                        [
-                            ft.Image(src="imagens/voltar.png", width=35, height=35, border_radius=10),
-                        ],
-                    ),
-                    alignment=ft.alignment.top_left, on_click="", # Função de clique do botão
-                    
-                            )
-                    ]  
+                ft.IconButton(
+                    icon=ft.icons.ARROW_BACK,
+                    icon_color="white",
+                    on_click=lambda e: navegar_para("ficha_treino"),  
                 ),
-            
+            ],
+            alignment=ft.MainAxisAlignment.START,
+        ),
+        padding=ft.padding.symmetric(vertical=10),
+    ),
     ft.Column(
             
             controls=[                  
-                ft.Text("Crucifixo", size=30, color="white", weight=ft.FontWeight.BOLD),
+                ft.Text("Pulley Frente", size=30, color="white", weight=ft.FontWeight.BOLD),
                 ft.Container(
                 padding=2 # Definindo um espaço vazio entre os elementos
             ),
@@ -57,12 +57,12 @@ def main(page: ft.Page):
                 ft.Container(
                 padding=2 # Definindo um espaço vazio entre os elementos
             ),
-                ft.Image(src="imagens/crucifixo.gif", width=200, height=200, border_radius=15),  # Adiciona o GIF no centro
+                ft.Image(src="imagens/pulley_frente.gif", width=200, height=200, border_radius=15),  # Adiciona o GIF no centro
                
                ft.Container(
                     content=ft.Column(
                         [
-                            ft.Text("Fortalecimento e hipertrofia dos músculos peitorais, com enfoque aos músculos peitoral maior e menor. Estimula a coordenação motora.", 
+                            ft.Text("Fortalecimento e hipertrofia da região das dorsais, abrange também, músculos auxiliares, tais como, trapézio e bíceps braquial.", 
                                     size=13, weight=ft.FontWeight, color="white"),
                         ],
                         alignment=ft.MainAxisAlignment.CENTER,  # Alinha verticalmente o texto
@@ -88,11 +88,9 @@ def main(page: ft.Page):
                     width=200, height=40, bgcolor=text_box[0]["background_color"],  # Define a cor de fundo
                     border_radius=20, 
                 ),
-                ft.Text("Peitoral", size=20, color="white", weight=ft.FontWeight),
+                ft.Text("Costas / Dorsal", size=20, color="white", weight=ft.FontWeight),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         )
     )
-# Executa o aplicativo Flet
-ft.app(target=main)

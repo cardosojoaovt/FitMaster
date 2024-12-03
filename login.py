@@ -1,13 +1,12 @@
 from flet import *
 import flet as ft
 
-# Simulação de um banco de dados com usuários
 usuarios = {
-    "usuario@exemplo.com": {"senha": "12345"}
+    "usuario@exemplo.com": {"senha": "12345"},
+    "2": {"senha": "2"}
 }
 
-# ==================== Função Principal ====================
-def main(pagina: ft.Page):
+def TelaLogin(pagina: ft.Page, navegar):
     pagina.title = "FitMaster - Tela de Login"
     pagina.theme_mode = ft.ThemeMode.DARK
     pagina.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -15,12 +14,12 @@ def main(pagina: ft.Page):
     pagina.padding = 20
     pagina.window_width = 375
     pagina.window_height = 667
-    pagina.bgcolor = "#2b0a3d"  # Pode ser substituído por uma imagem de fundo
+    pagina.bgcolor = "#2b0a3d"
 
-    abrir_tela_login(pagina)
+    abrir_tela_login(pagina, navegar)
 
-# ==================== Tela de Login ====================
-def abrir_tela_login(pagina):
+def abrir_tela_login(pagina, navegar):
+    """Carrega a tela de login."""
     pagina.controls.clear()
 
     campo_email = ft.TextField(
@@ -49,12 +48,11 @@ def abrir_tela_login(pagina):
         icon=ft.icons.ARROW_FORWARD,
         bgcolor="#61188a",
         icon_color="white",
-        on_click=lambda _: fazer_login(campo_email.value, campo_senha.value, pagina),
+        on_click=lambda _: fazer_login(campo_email.value, campo_senha.value, pagina, navegar),
     )
 
     logo = ft.Image(src="imagens/logoaplicativo.png", width=300, height=150)
 
-    # Estrutura da tela de login
     tela_login = ft.Column(
         [
             logo,
@@ -72,9 +70,7 @@ def abrir_tela_login(pagina):
     )
 
     pagina.add(tela_login)
-    pagina.update()
 
-# ==================== Funções Auxiliares ====================
 def exibir_alerta(mensagem, pagina):
     """Exibe uma mensagem de alerta."""
     pagina.dialog = ft.AlertDialog(title=ft.Text(mensagem), bgcolor="#410f5d")
@@ -87,7 +83,7 @@ def exibir_snackbar(mensagem, pagina):
     pagina.snack_bar.open = True
     pagina.update()
 
-# ==================== Redefinir Senha ====================
+
 def redefinir_senha(email, nova_senha, pagina):
     if not email or not nova_senha:
         exibir_alerta("Por favor, preencha todos os campos.", pagina)
@@ -132,20 +128,20 @@ def exibir_dialogo_redefinir_senha(pagina):
     dialogo.open = True
     pagina.update()
 
-# ==================== Login ====================
-def fazer_login(email, senha, pagina):
+def fazer_login(email, senha, pagina, navegar):
+    """Valida as credenciais de login e navega para a tela principal."""
     if not email or not senha:
         exibir_alerta("Por favor, preencha o e-mail e a senha.", pagina)
         return
 
     usuario = usuarios.get(email)
     if usuario and usuario["senha"] == senha:
-        abrir_telaprincipal(pagina)
+        navegar('menu')
     else:
         exibir_alerta("E-mail ou senha incorretos.", pagina)
 
-# ==================== Criar Conta ====================
 def criar_conta(email, senha, pagina):
+    """Cadastra um novo usuário."""
     if not email or not senha:
         exibir_alerta("Por favor, preencha o e-mail e a senha.", pagina)
         return
@@ -156,26 +152,3 @@ def criar_conta(email, senha, pagina):
         usuarios[email] = {"senha": senha}
         exibir_alerta("Conta criada com sucesso!", pagina)
 
-# ==================== Tela Principal ====================
-def abrir_telaprincipal(pagina):
-    pagina.controls.clear()
-
-    texto_bem_vindo = ft.Text("Bem-vindo à Tela Principal!", size=24, weight="bold")
-    botao_logout = ft.ElevatedButton(
-        text="Sair",
-        bgcolor=ft.colors.RED,
-        color=ft.colors.WHITE,
-        on_click=lambda _: abrir_tela_login(pagina),
-    )
-
-    tela_principal = ft.Column(
-        [texto_bem_vindo, botao_logout],
-        alignment=ft.MainAxisAlignment.CENTER,
-    )
-
-    pagina.add(tela_principal)
-    pagina.update()
-
-# ==================== Execução ====================
-if __name__ == "__main__":
-    ft.app(target=main)

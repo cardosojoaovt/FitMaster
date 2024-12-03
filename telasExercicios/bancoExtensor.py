@@ -1,7 +1,6 @@
 import flet as ft
 
-def main(page: ft.Page):
-    # Configurações da página
+def TelaBancoExtensor(page: ft.Page, navegar_para):
     page.title = "Execução de Exercícios"
     page.theme_mode = ft.ThemeMode.DARK
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -11,29 +10,25 @@ def main(page: ft.Page):
     page.window.height = 667
     page.bgcolor = "#2b0a3d"
 
-    
-    
-
-    # Criação da caixa de texto
     text_box = [
         {"background_color": "#410f5d"}
     ]
 
-    # Layout tela de exercicios
+
     page.add(
-        ft.Row(
+        ft.Container(
+        content=ft.Row(
             controls=[
-                ft.Container(
-                    content=ft.Column(
-                        [
-                            ft.Image(src="imagens/voltar.png", width=35, height=35, border_radius=10),
-                        ],
-                    ),
-                    alignment=ft.alignment.top_left, on_click="", # Função de clique do botão
-                    
-                            )
-                    ]  
+                ft.IconButton(
+                    icon=ft.icons.ARROW_BACK,
+                    icon_color="white",
+                    on_click=lambda e: navegar_para("ficha_treino"),  
                 ),
+            ],
+            alignment=ft.MainAxisAlignment.START,
+        ),
+        padding=ft.padding.symmetric(vertical=10),
+    ),
             
     ft.Column(
             
@@ -94,5 +89,3 @@ def main(page: ft.Page):
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         )
     )
-# Executa o aplicativo Flet
-ft.app(target=main)
