@@ -4,6 +4,11 @@ from menu import TelaMenu
 from ficha import TelaFicha 
 from plano import TelaPlano
 from usuario import TelaUsuario
+from telasExercicios.tricepsCorda import TelaTricepsCorda
+from telasExercicios.roscaDireta import TelaRoscaDireta
+from telasExercicios.crucifixo import TelaCrucifixo
+from telasExercicios.bancoExtensor import TelaBancoExtensor
+from telasExercicios.pulleyFrente import TelaPulley
 
 def main(page: ft.Page):
     page.title = "FitMaster App"
@@ -27,6 +32,16 @@ def main(page: ft.Page):
             TelaPlano(page, navegar_para, *args)
         elif tela == "usuario":
             TelaUsuario(page, navegar_para, *args)
+        elif tela == "pulleyFrente":
+            TelaPulley(page, navegar_para, *args)
+        elif tela == "roscaDireta":
+            TelaRoscaDireta(page, navegar_para, *args)
+        elif tela == "crucifixo":
+            TelaCrucifixo(page, navegar_para, *args)
+        elif tela == "bancoExtensor":
+            TelaBancoExtensor(page, navegar_para, *args)
+        elif tela == "tricepsCorda":
+            TelaTricepsCorda(page, navegar_para, *args)
         page.update()
 
     navegar_para("login")

@@ -1,7 +1,6 @@
 import flet as ft
 
-def main(page: ft.Page):
-    # Configurações da página
+def TelaRoscaDireta(page: ft.Page, navegar_para):
     page.title = "Execução de Exercícios"
     page.theme_mode = ft.ThemeMode.DARK
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -11,36 +10,31 @@ def main(page: ft.Page):
     page.window.height = 667
     page.bgcolor = "#5a0162"
 
-    
-    
-
-    # Criação da caixa de texto
     text_box = [
         {"background_color": "#a101af"}
     ]
 
-    # Layout tela de exercicios
     page.add(
-        ft.Row(
-            controls=[
-                ft.Container(
-                    content=ft.Column(
-                        [
-                            ft.Image(src="imagens/voltar.png", width=35, height=35, border_radius=10),
-                        ],
+        ft.Container(
+            content=ft.Row(
+                controls=[
+                    ft.IconButton(
+                        icon=ft.icons.ARROW_BACK,
+                        icon_color="white",
+                        on_click=lambda e: navegar_para("ficha_treino"),  
                     ),
-                    alignment=ft.alignment.top_left, on_click="", # Função de clique do botão
-                    
-                            )
-                    ]  
-                ),
+                ],
+                alignment=ft.MainAxisAlignment.START,
+            ),
+            padding=ft.padding.symmetric(vertical=10),
+    ),
             
     ft.Column(
             
             controls=[                  
                 ft.Text("Rosca Direta", size=30, color="white", weight=ft.FontWeight.BOLD),
                 ft.Container(
-                padding=2 # Definindo um espaço vazio entre os elementos
+                padding=2 
             ),
                 ft.Container(
                     content=ft.Column(
@@ -94,5 +88,3 @@ def main(page: ft.Page):
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         )
     )
-# Executa o aplicativo Flet
-ft.app(target=main)
